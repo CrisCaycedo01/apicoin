@@ -31,7 +31,6 @@
     <noscript>Esta app requiere JavaScript habilitado.</noscript>
   </footer>
 
-  <!-- scripts: módulos en minúsculas y en este orden -->
   <script type="module" src="./App.js"></script>
   <script type="module" src="./home.js"></script>
   <script type="module" src="./coins.js"></script>
@@ -39,7 +38,6 @@
   <script type="module" src="./markets.js"></script>
   <script type="module" src="./watchList.js"></script>
 
-  <!-- registro del service worker (opcional para APK/PWA) -->
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('./service-worker.js').catch(() => {});

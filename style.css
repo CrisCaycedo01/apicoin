@@ -29,7 +29,6 @@ a:hover {
   text-decoration: underline;
 }
 
-/* === Header / Navigation === */
 .topbar {
   background: var(--blue-main);
   color: var(--white);
@@ -62,14 +61,12 @@ a:hover {
   background: var(--blue-dark);
 }
 
-/* === Main container === */
 .container {
   padding: 1.5em;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-/* === Tables === */
 .table {
   width: 100%;
   border-collapse: collapse;
@@ -96,7 +93,6 @@ a:hover {
   background: var(--blue-light);
 }
 
-/* === Controls (inputs, buttons, badges) === */
 .controls {
   display: flex;
   flex-wrap: wrap;
@@ -139,7 +135,6 @@ button:disabled {
   font-weight: 600;
 }
 
-/* === Grid layout === */
 .grid {
   display: grid;
   gap: 1em;
@@ -159,7 +154,6 @@ button:disabled {
   color: var(--blue-main);
 }
 
-/* === Footer === */
 .footer {
   text-align: center;
   padding: 1em 0;
@@ -172,7 +166,6 @@ button:disabled {
   color: var(--blue-dark);
 }
 
-/* === Misc === */
 .mono {
   font-family: monospace;
   color: var(--blue-dark);
@@ -192,7 +185,6 @@ button:disabled {
   font-weight: 500;
 }
 
-/* === Responsive tweaks === */
 @media (max-width: 700px) {
   .tabs {
     flex-wrap: wrap;
@@ -202,4 +194,16 @@ button:disabled {
     flex-direction: column;
     align-items: flex-start;
   }
+}
+
+.fav-btn {
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 0.2em 0.45em;
+  background: transparent;
+  color: var(--blue-dark);
+  border: 1px solid rgba(13,71,161,0.25);
+}
+.fav-btn:hover {
+  background: var(--blue-light);
 }
