@@ -1,30 +1,49 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ApiCoin</title>
+
+  <!-- estilos -->
+  <link rel="stylesheet" href="./style.css" />
+
+  <!-- PWA / iconos (opcional, pero recomendado para el rubric) -->
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="icon" href="./icon-192.png" sizes="192x192" />
+  <meta name="theme-color" content="#111111" />
 </head>
 <body>
-<header class="topbar">
-    <nav class="tabs">
-        <a href="#/">Home</a>
-        <a href="#/coins">Coins</a>
-        <a href="#/trending">Trending</a>
-        <a href="#/markets">Markets</a>
-        <a href="#/about">About</a>
+  <header class="topbar">
+    <nav class="tabs" aria-label="Secciones">
+      <a href="#/">Home</a>
+      <a href="#/coins">Coins</a>
+      <a href="#/trending">Trending</a>
+      <a href="#/markets">Markets</a>
+      <a href="#/watchlist">Watchlist</a> <!-- pestaña 5 -->
     </nav>
-</header>
+  </header>
 
-<main id="app" class="container"></main>
+  <main id="app" class="container"></main>
 
-<footer class="footer">
+  <footer class="footer">
     <small>Data by <a href="https://www.coingecko.com/en/api" target="_blank" rel="noreferrer">CoinGecko API</a></small>
-</footer>
+    <noscript>Esta app requiere JavaScript habilitado.</noscript>
+  </footer>
 
-<script type="module" src="home.js"></script>
+  <!-- scripts: módulos en minúsculas y en este orden -->
+  <script type="module" src="./App.js"></script>
+  <script type="module" src="./home.js"></script>
+  <script type="module" src="./coins.js"></script>
+  <script type="module" src="./trending.js"></script>
+  <script type="module" src="./markets.js"></script>
+  <script type="module" src="./watchList.js"></script>
+
+  <!-- registro del service worker (opcional para APK/PWA) -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./service-worker.js').catch(() => {});
+    }
+  </script>
 </body>
 </html>
