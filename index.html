@@ -7,11 +7,15 @@
 
   <!-- estilos -->
   <link rel="stylesheet" href="./style.css" />
-
+<link rel="manifest" href="./manifest.json">
   <!-- PWA / iconos (opcional, pero recomendado para el rubric) -->
   <link rel="manifest" href="./manifest.json" />
   <link rel="icon" href="./icon-192.png" sizes="192x192" />
   <meta name="theme-color" content="#111111" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ApiCoin">
+<link rel="apple-touch-icon" href="./icon-192.png">
 </head>
 <body>
   <header class="topbar">
@@ -43,5 +47,10 @@
       navigator.serviceWorker.register('./service-worker.js').catch(() => {});
     }
   </script>
+<script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("./service-worker.js");
+  }
+</script>
 </body>
 </html>
