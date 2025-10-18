@@ -1,4 +1,4 @@
-// markets.js
+// markets.js — /coins/markets con paginación server-side
 const API = 'https://api.coingecko.com/api/v3';
 let _abortMarkets = null, _page = 1;
 
@@ -6,6 +6,7 @@ export const route = { path: /^\/markets$/, view: MarketsView };
 
 export async function MarketsView() {
   const $app = document.getElementById('app'); if (!$app) return;
+
   const perPage = 50;
   const vsOpts = ['usd','eur','cop','mxn','ars','brl'];
   let vs = (sessionStorage.getItem('apicoin:vs') || 'usd');
@@ -26,7 +27,8 @@ export async function MarketsView() {
         <select id="vs">${vsOpts.map(opt=>`<option value="${opt}" ${opt===vs?'selected':''}>${opt.toUpperCase()}</option>`).join('')}</select>
         <button id="refresh">Actualizar</button>
       </div>
-      <table class="table"><thead><tr><th>#</th><th>Nombre</th><th>Precio</th><th>Cap</th><th>Vol 24h</th><th>% 24h</th></tr></thead>
+      <table class="table">
+        <thead><tr><th>#</th><th>Nombre</th><th>Precio</th><th>Cap</th><th>Vol 24h</th><th>% 24h</th></tr></thead>
         <tbody>
           ${rows.map((r,i)=>`
             <tr>

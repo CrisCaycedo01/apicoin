@@ -1,24 +1,18 @@
-
+// coins.js — Lista /coins/list + buscador + filtro + paginación + ⭐
 const API = 'https://api.coingecko.com/api/v3';
 const FAVS_KEY = 'apicoin:favs';
 
 let _coinsCache = null;
 let _abort = null;
 
-export const route = {
-  path: /^\/coins$/,
-  view: CoinsView
-};
+export const route = { path: /^\/coins$/, view: CoinsView };
 
 export async function CoinsView() {
-  const $app = document.getElementById('app');
-  if (!$app) return;
-
+  const $app = document.getElementById('app'); if (!$app) return;
   $app.innerHTML = `<h1>Coins</h1><p class="muted">Cargando…</p>`;
 
   try {
-    if (_abort) _abort.abort();
-    _abort = new AbortController();
+    if (_abort) _abort.abort(); _abort = new AbortController();
 
     if (!_coinsCache) {
       const res = await fetch(`${API}/coins/list`, { signal: _abort.signal });
@@ -26,13 +20,9 @@ export async function CoinsView() {
       _coinsCache = await res.json(); // [{id, symbol, name}]
     }
 
-    // ---- Estado local ----
-    let q = '';
-    let letter = '';
-    let page = 1;
+    let q = '', letter = '', page = 1;
     const pageSize = 50;
 
-    // ---- Helpers ----
     const fmt = { num: n => (typeof n === 'number' ? n.toLocaleString() : '—') };
     const debounce = (fn, ms=200) => { let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a), ms); }; };
 
@@ -41,7 +31,6 @@ export async function CoinsView() {
     const isFav = (id) => getFavs().has(id);
     const toggleFav = (id) => { const s = getFavs(); s.has(id) ? s.delete(id) : s.add(id); setFavs(s); };
 
-    // ---- Render / mount ----
     const mount = () => {
       const filtered = _coinsCache
         .filter(c => !letter || (c.name?.[0]?.toUpperCase() === letter))
@@ -89,21 +78,17 @@ export async function CoinsView() {
         </table>
       `;
 
-      // Handlers
-      const onSearch = debounce((e) => { q = e.target.value.trim().toLowerCase(); page = 1; mount(); }, 250);
+      const onSearch = debounce(e => { q = e.target.value.trim().toLowerCase(); page=1; mount(); }, 250);
       document.getElementById('q').addEventListener('input', onSearch);
-      document.getElementById('letter').addEventListener('change', (e) => { letter = e.target.value; page = 1; mount(); });
-      document.getElementById('prev').addEventListener('click', () => { if (page>1) { page--; mount(); }});
-      document.getElementById('next').addEventListener('click', () => { page++; mount(); });
+      document.getElementById('letter').addEventListener('change', e => { letter=e.target.value; page=1; mount(); });
+      document.getElementById('prev').addEventListener('click', ()=>{ if(page>1){ page--; mount(); }});
+      document.getElementById('next').addEventListener('click', ()=>{ page++; mount(); });
 
-      // Delegación de eventos para la estrella
       $app.querySelectorAll('.fav-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
-          e.preventDefault(); // evita navegar si está dentro de <a>
-          e.stopPropagation();
+          e.preventDefault(); e.stopPropagation();
           const id = e.currentTarget.dataset.id;
           toggleFav(id);
-          // re-render solo la estrella
           e.currentTarget.textContent = isFav(id) ? '⭐' : '☆';
         });
       });
@@ -112,13 +97,7 @@ export async function CoinsView() {
     mount();
   } catch (err) {
     if (err.name === 'AbortError') return;
-    $app.innerHTML = `
-      <h1>Coins</h1>
-      <p class="alert">No se pudo cargar el listado. Reintenta más tarde.</p>
-      <div class="controls">
-        <button id="retry">Reintentar</button>
-      </div>
-    `;
+    $app.innerHTML = `<h1>Coins</h1><p class="alert">No se pudo cargar el listado.</p><div class="controls"><button id="retry">Reintentar</button></div>`;
     document.getElementById('retry')?.addEventListener('click', CoinsView);
     console.error(err);
   }

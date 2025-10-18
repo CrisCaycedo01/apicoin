@@ -1,4 +1,4 @@
-// watchlist.js
+// watchlist.js — Favoritos con precios en vivo
 const API = 'https://api.coingecko.com/api/v3';
 const FAVS_KEY = 'apicoin:favs';
 let _abortWL = null;
@@ -31,7 +31,8 @@ export async function WatchlistView() {
         <span class="badge">Total: ${fmt.num(rows.length)}</span>
         <button id="clear">Limpiar favoritos</button>
       </div>
-      <table class="table"><thead><tr><th>#</th><th>Moneda</th><th>Precio</th><th>% 24h</th><th>Cap</th><th></th></tr></thead>
+      <table class="table">
+        <thead><tr><th>#</th><th>Moneda</th><th>Precio</th><th>% 24h</th><th>Cap</th><th></th></tr></thead>
         <tbody>
           ${rows.map((r,i)=>`
             <tr data-id="${r.id}">

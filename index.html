@@ -5,52 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ApiCoin</title>
 
-  <!-- estilos -->
+  <!-- Estilos -->
   <link rel="stylesheet" href="./style.css" />
-<link rel="manifest" href="./manifest.json">
-  <link rel="manifest" href="./manifest.json" />
 
+  <link rel="manifest" href="./manifest.json" />
   <link rel="icon" href="./icon-192.png" sizes="192x192" />
-  <meta name="theme-color" content="#111111" />
+  <meta name="theme-color" content="#1e88e5" />
+
+  <!-- iOS PWA -->
   <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="ApiCoin">
-<link rel="apple-touch-icon" href="./icon-192.png">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="ApiCoin">
+  <link rel="apple-touch-icon" href="./icon-192.png">
 </head>
 <body>
   <header class="topbar">
     <nav class="tabs" aria-label="Secciones">
-      <a href="#home">Home</a>
-      <a href="#coins">Coins</a>
-      <a href="#trending">Trending</a>
-      <a href="#markets">Markets</a>
-      <a href="#watchlist">Watchlist</a>
+      <a href="#/">Home</a>
+      <a href="#/coins">Coins</a>
+      <a href="#/trending">Trending</a>
+      <a href="#/markets">Markets</a>
+      <a href="#/watchlist">Watchlist</a>
     </nav>
   </header>
 
   <main id="app" class="container"></main>
 
   <footer class="footer">
-    <small>Data by <a href="https://www.coingecko.com/en/api" target="_blank" rel="noreferrer">CoinGecko API</a></small>
+    <small>
+      Data by <a href="https://www.coingecko.com/en/api" target="_blank" rel="noreferrer">CoinGecko API</a>
+    </small>
     <noscript>Esta app requiere JavaScript habilitado.</noscript>
   </footer>
 
-  <script type="module" src="./App.js"></script>
-  <script type="module" src="./home.js"></script>
-  <script type="module" src="./coins.js"></script>
-  <script type="module" src="./trending.js"></script>
-  <script type="module" src="./markets.js"></script>
-  <script type="module" src="watchlist.js"></script>
+  <!-- ÚNICO script de entrada (el router importará las vistas). -->
+  <script type="module" src="./app.js"></script>
 
+  <!-- Service Worker (PWA) -->
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('./service-worker.js').catch(() => {});
     }
   </script>
-<script>
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("./service-worker.js");
-  }
-</script>
 </body>
 </html>
